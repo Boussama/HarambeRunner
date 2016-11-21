@@ -14,7 +14,17 @@ import sys
 #     img = device.takeSnapshot()
 #     img.writeToFile("/Users/MacBook/offlineDesktop/python/HarambeRunner/actual.png", 'PNG')
 def main():
-	if len(sys.argv) == 3:
+	if len(sys.argv) == 4:
+		x =  int(sys.argv[1])
+		y =  int(sys.argv[2])
+		delay = float(sys.argv[3])
+
+		device = MonkeyRunner.waitForConnection()
+		device.touch(x, y, MonkeyDevice.DOWN_AND_UP)
+		time.sleep(delay)
+		img = device.takeSnapshot()
+		img.writeToFile("/Users/MacBook/offlineDesktop/python/HarambeRunner/actual.png", 'PNG')
+	elif len(sys.argv) == 3:
 		x =  int(sys.argv[1])
 		y =  int(sys.argv[2])
 
@@ -23,6 +33,9 @@ def main():
 		time.sleep(1)
 		img = device.takeSnapshot()
 		img.writeToFile("/Users/MacBook/offlineDesktop/python/HarambeRunner/actual.png", 'PNG')
-		return "salam"
+	else:
+		device = MonkeyRunner.waitForConnection()
+		img = device.takeSnapshot()
+		img.writeToFile("/Users/MacBook/offlineDesktop/python/HarambeRunner/actual.png", 'PNG')
 
 main()
