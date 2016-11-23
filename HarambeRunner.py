@@ -69,6 +69,9 @@ def getSnapshot():
 	os.system("monkeyrunner HarambeBridge.py ")
 	initImage()
 
+def refreshScreen(event):
+	getSnapshot()
+
 
 root = Tk()
 os.system("monkeyrunner HarambeBridge.py ")
@@ -107,11 +110,16 @@ delayEntry = Entry(root)
 delayEntry.grid(row=1, column=2)
 delayEntry.insert(0,"1")
 
+refreshButton = Button(root, text="Refresh")
+refreshButton.grid(row=2, column=1)
+refreshButton.bind("<Button 1>", refreshScreen)
+
 nextButton = Button(root, text="Next")
-nextButton.grid(row=2, column=1)
+nextButton.grid(row=2, column=2)
 
 executeButton = Button(root, text="Execute")
-executeButton.grid(row=2, column=2)
+executeButton.grid(row=2, column=3)
+executeButton.bind("<Button 1>", executeOrder)
 
 logLabel = Label(root, text="Log :")
 logLabel.grid(row=3, column=1, sticky=W)
@@ -122,6 +130,6 @@ logText.insert(END, "il vaut mieux avoir affaire a dieu qua ses saints")
 
 #mouseclick event
 canvas.bind("<Button 1>",printcoords)
-executeButton.bind("<Button 1>", executeOrder)
+
 
 root.mainloop()
