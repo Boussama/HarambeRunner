@@ -13,6 +13,7 @@ canvasImgWidth = None
 canvasImgHeight = None
 mouseX = 0
 mouseY = 0
+mouseCoor = []
 
 # Functions
 def loadImage():
@@ -72,6 +73,29 @@ def getSnapshot():
 def refreshScreen(event):
 	getSnapshot()
 
+def storeAction(event):
+
+	global mouseX
+	global mouseY
+	global logText
+	global mouseCoor
+
+	mouseCoor.append([str(mouseX), str(mouseY)])
+	logText.delete('1.0', END)
+	textToInsert = ""
+	for id,coor in enumerate(mouseCoor):
+		textToInsert += "myCoords[ point"+str(id)+" ] = [ "+str(coor[0])+"," +str(coor[1])+" ]\n"
+
+	logText.insert(END, textToInsert)
+
+
+
+def generateVariable(text):
+	global logText
+	if text is not None:
+		logText.insert(0, str(text))
+	else:
+		text = str
 
 root = Tk()
 os.system("monkeyrunner HarambeBridge.py ")
@@ -116,6 +140,7 @@ refreshButton.bind("<Button 1>", refreshScreen)
 
 nextButton = Button(root, text="Next")
 nextButton.grid(row=2, column=2)
+nextButton.bind("<Button 1>", storeAction)
 
 executeButton = Button(root, text="Execute")
 executeButton.grid(row=2, column=3)
@@ -125,7 +150,7 @@ logLabel = Label(root, text="Log :")
 logLabel.grid(row=3, column=1, sticky=W)
 
 logText = Text(root)
-logText.grid(row=4, column=1, columnspan=4 )
+logText.grid(row=4, column=1, columnspan=4 , sticky=W+E+N+S)
 logText.insert(END, "il vaut mieux avoir affaire a dieu qua ses saints")
 
 #mouseclick event
